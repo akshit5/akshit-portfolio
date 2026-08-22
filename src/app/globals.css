@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Dark mode is class-based and intentionally designed (not inverted).
+   ------------------------------------------------------------------ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Neutrals — light */
+  --color-ink: #111111;
+  --color-ink-2: #666666;
+  /* Darkened from #8b8b8b: the original failed WCAG AA (3.0:1) for the small
+     mono labels it is used on. #6f6f6f clears 4.5:1 on both backgrounds. */
+  --color-ink-3: #6f6f6f;
+  --color-paper: #ffffff;
+  --color-paper-2: #f7f7f5;
+  --color-paper-3: #efefec;
+  --color-line: #e8e8e8;
+  --color-line-strong: #d8d8d6;
+
+  /* Neutrals — dark (warm-free, slightly cool near-black) */
+  --color-void: #0a0a0b;
+  --color-void-2: #111113;
+  --color-void-3: #17171a;
+  --color-void-line: #26262b;
+  --color-void-line-strong: #34343a;
+  --color-chalk: #f2f2f3;
+  --color-chalk-2: #9a9aa2;
+  --color-chalk-3: #8a8a94;
+
+  /* Accent — restrained electric indigo */
+  --color-accent: #2f4bf0;
+  --color-accent-hover: #2540d6;
+  --color-accent-soft: #eef0ff;
+  --color-accent-dark: #8b9bff;
+  --color-accent-dark-hover: #a3b0ff;
+  --color-accent-dark-soft: #1a1c33;
+
+  /* Type */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  /* Motion */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ------------------------------------------------------------------
+   Semantic tokens. Every component reads these, never raw hex.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: var(--color-paper);
+  --bg-subtle: var(--color-paper-2);
+  --bg-inset: var(--color-paper-3);
+  --fg: var(--color-ink);
+  --fg-muted: var(--color-ink-2);
+  --fg-faint: var(--color-ink-3);
+  --border: var(--color-line);
+  --border-strong: var(--color-line-strong);
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --accent-soft: var(--color-accent-soft);
+  --accent-contrast: #ffffff;
+  --shadow-card: 0 1px 2px rgba(17, 17, 17, 0.04),
+    0 8px 24px -12px rgba(17, 17, 17, 0.12);
+  --shadow-lift: 0 2px 4px rgba(17, 17, 17, 0.05),
+    0 24px 48px -20px rgba(17, 17, 17, 0.18);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: var(--color-void);
+  --bg-subtle: var(--color-void-2);
+  --bg-inset: var(--color-void-3);
+  --fg: var(--color-chalk);
+  --fg-muted: var(--color-chalk-2);
+  --fg-faint: var(--color-chalk-3);
+  --border: var(--color-void-line);
+  --border-strong: var(--color-void-line-strong);
+  --accent: var(--color-accent-dark);
+  --accent-hover: var(--color-accent-dark-hover);
+  --accent-soft: var(--color-accent-dark-soft);
+  --accent-contrast: #0a0a0b;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px -12px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 24px 48px -20px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-inset: var(--bg-inset);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-border-hair: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-brand: var(--accent);
+  --color-brand-hover: var(--accent-hover);
+  --color-brand-soft: var(--accent-soft);
+  --color-brand-contrast: var(--accent-contrast);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  @media (min-width: 1024px) {
+    body {
+      font-size: 1.125rem; /* 18px */
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Never rely on colour alone: links carry an underline affordance. */
+  a {
+    color: inherit;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 78rem; /* 1248px */
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .container-prose {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 44rem;
+  }
+
+  /* Small monospace label used for eyebrows, metadata and tags. */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hairline-grid {
+    background-image: linear-gradient(
+        to right,
+        var(--border) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion: kill transforms/animation, keep everything legible.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
