@@ -1,6 +1,6 @@
 # Personal portfolio
 
-[akshit-portfolio-chi.vercel.app](https://akshit-portfolio-chi.vercel.app)
+**Live:** [akshit-portfolio-chi.vercel.app](https://akshit-portfolio-chi.vercel.app)
 
 My portfolio site. Product, strategy, AI and design work, with the case studies
 written around the decisions rather than the screenshots.
