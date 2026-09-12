@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { Hero } from "@/components/hero";
+// The original hero is kept at components/hero.tsx. To revert the
+// statement screen, swap these two imports and the two tags below.
+import { StatementHero } from "@/components/statement-hero";
+import { ProductBand } from "@/components/product-band";
 import { SelectedWork } from "@/components/selected-work";
 import { Positioning } from "@/components/positioning";
 import { ThinkingMap } from "@/components/thinking-map";
@@ -17,7 +20,8 @@ import { experience } from "@/content/experience";
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <StatementHero />
+      <ProductBand />
       <SelectedWork />
       <Positioning />
       <ThinkingMap />

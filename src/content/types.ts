@@ -37,6 +37,10 @@ export interface Figure {
   position?: string;
   /** "contain" letterboxes instead of cropping. Default "cover". */
   fit?: "cover" | "contain";
+  /** Wrap in browser chrome. For web-app screenshots, not boards or phones. */
+  chrome?: boolean;
+  /** Text for the chrome address pill, usually the product's URL. */
+  chromeLabel?: string;
 }
 
 export type Block =

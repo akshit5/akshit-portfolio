@@ -14,13 +14,21 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
       <FigureFrame
         figure={project.cover}
         radius="sm"
+        hoverZoom
         className="transition-shadow duration-500 group-hover:shadow-[var(--shadow-card)]"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
       />
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>
           <h3 className="flex items-center gap-1.5 text-[1.0625rem] font-medium tracking-[-0.015em]">
-            {project.title}
+            <span className="relative">
+              {project.title}
+              {/* Underline sweeps in from the left on hover. */}
+              <span
+                aria-hidden="true"
+                className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-400 ease-out group-hover:scale-x-100 motion-reduce:transition-none"
+              />
+            </span>
             <ArrowUpRight
               className="size-4 shrink-0 text-fg-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand"
               strokeWidth={1.8}

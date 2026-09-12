@@ -5,6 +5,7 @@ import { ArrowDown, Download } from "lucide-react";
 import { site } from "@/content/site";
 import { Button } from "./ui/button";
 import { ProductCanvas } from "./product-canvas";
+import { HeroBackdrop } from "./hero-backdrop";
 
 export function Hero() {
   const reduced = useReducedMotion();
@@ -23,7 +24,8 @@ export function Hero() {
         };
 
   return (
-    <section className="relative overflow-hidden pt-28 md:pt-36 lg:pt-44">
+    <section className="relative isolate overflow-hidden pt-28 md:pt-36 lg:pt-44">
+      <HeroBackdrop />
       <div className="container-page">
         <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14 xl:gap-20">
           <div>
@@ -35,19 +37,52 @@ export function Hero() {
               {site.hero.eyebrow}
             </motion.p>
 
+            {/* Per-word mask reveal. Each word sits in an overflow-hidden
+                sleeve and slides up, which reads as typesetting rather than
+                as an animation. The padding/negative-margin pair stops the
+                sleeve clipping descenders. */}
             <h1 className="mt-6 text-[2.625rem] font-medium leading-[1.04] tracking-[-0.035em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[3.5rem] xl:text-[4.25rem] 2xl:text-[4.75rem]">
-              {site.hero.headline.map((line, i) => (
-                <motion.span key={line} {...rise(i + 1)} className="block">
-                  {i === site.hero.headline.length - 1 ? (
-                    <>
-                      {line.replace(/\.$/, "")}
-                      <span className="text-brand">.</span>
-                    </>
-                  ) : (
-                    line
-                  )}
-                </motion.span>
-              ))}
+              {(() => {
+                let index = 0;
+                return site.hero.headline.map((line, lineIndex) => {
+                  const words = line.split(" ");
+                  const isLastLine = lineIndex === site.hero.headline.length - 1;
+                  return (
+                    <span key={line} className="block">
+                      {words.map((word, wordIndex) => {
+                        const i = index++;
+                        const isLastWord = isLastLine && wordIndex === words.length - 1;
+                        return (
+                          <span
+                            key={`${word}-${i}`}
+                            className="-mb-[0.14em] mr-[0.22em] inline-block overflow-hidden pb-[0.14em] align-bottom"
+                          >
+                            <motion.span
+                              className="inline-block"
+                              initial={reduced ? undefined : { y: "115%" }}
+                              animate={reduced ? undefined : { y: 0 }}
+                              transition={{
+                                duration: 0.9,
+                                delay: 0.08 + i * 0.05,
+                                ease: [0.22, 1, 0.36, 1],
+                              }}
+                            >
+                              {isLastWord ? (
+                                <>
+                                  {word.replace(/\.$/, "")}
+                                  <span className="text-brand">.</span>
+                                </>
+                              ) : (
+                                word
+                              )}
+                            </motion.span>
+                          </span>
+                        );
+                      })}
+                    </span>
+                  );
+                });
+              })()}
             </h1>
 
             <motion.p

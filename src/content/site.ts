@@ -22,6 +22,9 @@ export const site = {
   hero: {
     eyebrow: "Akshit Rana · Product, Strategy & AI · Germany",
     headline: ["From ambiguous problem", "to working product."],
+    /** Short line under the name on the statement screen. */
+    statement:
+      "Product strategy, business analysis and AI-assisted building. I take problems nobody has framed yet and turn them into something you can click.",
     subhead:
       "I'm a Technology & Innovation Management Master's student in Germany. I work across product strategy, business analysis, user experience and AI-assisted development, usually on problems nobody has framed properly yet.",
     availability:

@@ -92,6 +92,9 @@ function InterfaceTreatment({ project, n }: { project: Project; n: number }) {
         <Link href={`/projects/${project.slug}`} className="group block">
           <FigureFrame
             figure={project.cover}
+            chrome={project.cover.chrome}
+            chromeLabel={project.cover.chromeLabel}
+            hoverZoom
             className="shadow-[var(--shadow-card)] transition-shadow duration-500 group-hover:shadow-[var(--shadow-lift)]"
             sizes="(max-width: 1024px) 100vw, 720px"
           />
@@ -157,6 +160,9 @@ function DocumentTreatment({ project, n }: { project: Project; n: number }) {
               <FigureFrame
                 figure={project.cover}
                 radius="sm"
+                chrome={project.cover.chrome}
+                chromeLabel={project.cover.chromeLabel}
+                hoverZoom
                 className="transition-shadow duration-500 group-hover:shadow-[var(--shadow-card)]"
                 sizes="(max-width: 640px) 90vw, 340px"
               />
@@ -239,7 +245,9 @@ function BuildTreatment({ project, n }: { project: Project; n: number }) {
             <Link href={`/projects/${project.slug}`} className="group block">
               <FigureFrame
                 figure={project.cover}
-                className="transition-transform duration-500 group-hover:scale-[1.008]"
+                chrome={project.cover.chrome}
+                chromeLabel={project.cover.chromeLabel}
+                hoverZoom
                 sizes="(max-width: 1024px) 100vw, 620px"
               />
             </Link>

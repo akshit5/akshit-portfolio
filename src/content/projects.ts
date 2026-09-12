@@ -18,12 +18,19 @@ const CC = "/images/projects/crafty";
 const AN = "/images/projects/analytics";
 const RS = "/images/projects/research";
 
-/** Card covers crop tall screenshots from the top, where the header lives. */
-const card = (src: string, alt: string): Figure => ({
+/**
+ * Card covers crop tall screenshots from the top, where the header lives.
+ * Pass a URL as `chrome` to wrap the shot in browser chrome, which is worth
+ * doing for web apps and wrong for phone screens or presentation boards.
+ */
+const card = (src: string, alt: string, chrome?: string | true): Figure => ({
   src,
   alt,
   ratio: "16/10",
   position: "top",
+  ...(chrome
+    ? { chrome: true, chromeLabel: typeof chrome === "string" ? chrome : undefined }
+    : {}),
 });
 
 export const projects: Project[] = [
@@ -52,7 +59,7 @@ export const projects: Project[] = [
     metaLine: "Multi-sided platform · Operations console",
     scopeNote:
       "Amealio is Envisionard's product, built by a full product and engineering team. I did research, UX/UI design and product support on specific surfaces while I was there. I'm not claiming I built the platform.",
-    cover: card(`${A}/kpi-dashboard.webp`, "Amealio KPI dashboard"),
+    cover: card(`${A}/kpi-dashboard.webp`, "Amealio KPI dashboard", "amealio.com"),
     thumbnails: [
       card(`${A}/staff-management.webp`, "Amealio staff management screen"),
       card(`${A}/offer-management.webp`, "Amealio merchant offer management screen"),
@@ -329,7 +336,11 @@ export const projects: Project[] = [
     metaLine: "Venture case · Memo + live MVP",
     scopeNote:
       "TaxHub is a case study, not a funded company. The MVP is a proof of concept built to test the wedge. The market and revenue figures below are modelled in the memo, so treat them as projections rather than results.",
-    cover: card(`${T}/knowledge-home.webp`, "TaxHub knowledge hub MVP"),
+    cover: card(
+      `${T}/knowledge-home.webp`,
+      "TaxHub knowledge hub MVP",
+      "akshit5.github.io/taxhub-operating-hub"
+    ),
     thumbnails: [
       card(`${T}/practice-dashboard.webp`, "TaxHub practice dashboard"),
     ],
@@ -569,7 +580,11 @@ export const projects: Project[] = [
     metaLine: "Venture case · Live MVP",
     scopeNote:
       "CAVRIX was a case study and MVP, not a production compliance platform. The readiness check is a structured self-assessment. The product itself says its output is indicative and should be confirmed through formal legal and compliance review.",
-    cover: card(`${C}/landing.webp`, "CAVRIX NIS2 readiness check landing screen"),
+    cover: card(
+      `${C}/landing.webp`,
+      "CAVRIX NIS2 readiness check landing screen",
+      "cavrix-nis2-readiness-check.vercel.app"
+    ),
     thumbnails: [card(`${C}/result-gaps.webp`, "CAVRIX assessment result")],
     links: [
       {
@@ -783,6 +798,7 @@ export const projects: Project[] = [
       alt: "Traffic monitoring dashboard with live map, congestion and camera feeds",
       ratio: "16/10",
       position: "top",
+      chrome: true,
     },
     links: [
       {

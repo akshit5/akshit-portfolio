@@ -1,16 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { projects, categories } from "@/content/projects";
-import { ProjectCard } from "./project-list";
+import { ProjectIndexList } from "./project-index-list";
 import { cn } from "@/lib/utils";
 
 type Filter = (typeof categories)[number];
 
 export function ProjectsExplorer() {
   const [filter, setFilter] = useState<Filter>("All");
-  const reduced = useReducedMotion();
 
   const visible = useMemo(
     () =>
@@ -78,22 +76,10 @@ export function ProjectsExplorer() {
         {filter !== "All" && ` · ${filter}`}
       </p>
 
-      <div className="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {visible.map((p) => (
-            <motion.div
-              key={p.slug}
-              layout={!reduced}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? undefined : { opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ProjectCard project={p} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      <div className="mt-8">
+        <ProjectIndexList key={filter} projects={visible} />
       </div>
+
     </>
   );
 }

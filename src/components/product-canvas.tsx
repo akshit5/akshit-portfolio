@@ -63,7 +63,10 @@ export function ProductCanvas() {
         <Link href="/projects/amealio" className="group block rounded-lg">
           <FigureFrame
             figure={amealio.cover}
-            className="shadow-[var(--shadow-card)] transition-transform duration-500 group-hover:scale-[1.008]"
+            chrome
+            chromeLabel={amealio.cover.chromeLabel}
+            hoverZoom
+            className="shadow-[var(--shadow-card)]"
             priority
             sizes="(max-width: 1024px) 92vw, 520px"
           />
@@ -105,7 +108,9 @@ export function ProductCanvas() {
             <FigureFrame
               figure={cavrix.cover}
               radius="sm"
-              className="shadow-[var(--shadow-lift)] transition-transform duration-500 group-hover:scale-[1.012]"
+              chrome
+              hoverZoom
+              className="shadow-[var(--shadow-lift)]"
               sizes="(max-width: 1024px) 55vw, 300px"
             />
             <span className={caption}>

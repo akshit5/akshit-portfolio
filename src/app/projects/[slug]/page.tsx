@@ -9,7 +9,7 @@ import { site } from "@/content/site";
 import { Blocks } from "@/components/case-study/blocks";
 import { SectionNav } from "@/components/case-study/section-nav";
 import { ReadingProgress } from "@/components/case-study/reading-progress";
-import { FigureFrame } from "@/components/ui/figure-frame";
+import { CoverFigure } from "@/components/case-study/cover-figure";
 import { Reveal } from "@/components/ui/reveal";
 import { ContactSection } from "@/components/contact-section";
 import { GithubIcon } from "@/components/ui/brand-icons";
@@ -143,14 +143,13 @@ export default async function ProjectPage({
 
         {/* ---------- Cover ---------- */}
         <div className="container-page">
-          <Reveal>
-            <FigureFrame
-              figure={project.cover}
-              priority
-              sizes="(max-width: 1280px) 100vw, 1200px"
-              className="shadow-[var(--shadow-card)]"
-            />
-          </Reveal>
+          <CoverFigure
+            figure={project.cover}
+            chromeLabel={
+              project.links.find((l) => l.kind === "demo" || l.kind === "site")
+                ?.href
+            }
+          />
         </div>
 
         {project.scopeNote && (
