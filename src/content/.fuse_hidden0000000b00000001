@@ -9,7 +9,7 @@ export const site = {
    * The live deployment. Drives canonical tags, the sitemap and Open Graph
    * URLs, so update it if you move to a custom domain.
    */
-  url: "https://akshitrana.vercel.app",
+  url: "https://akshit-portfolio-chi.vercel.app",
 
   title: "Akshit Rana — Product, AI & Innovation",
   description:
